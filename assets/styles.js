@@ -24,8 +24,8 @@ export const styles = StyleSheet.create({
     width:'90%',
     alignItems:'center',
     borderColor:'black',
+    justifyContent:'space-around',
     borderBottomWidth:1,
-    
-    flexDirection: 'row'
+    flexDirection: 'row',
   }
 });
