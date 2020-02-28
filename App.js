@@ -7,6 +7,8 @@ import Auth from './Auth';
 import Pokedex from './Pokedex'
 import Pokemon from './Pokemon'
 import WishList from './WishList'
+import { myConfig } from './firebase-config'
+import * as firebase from 'firebase';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator()
@@ -42,7 +44,7 @@ return(
 
 function createMenuStack() {
   return  (
-    <Stack.Navigator   headerMode="none"  initialRouteName='Pokedextab' >
+    <Stack.Navigator   headerMode="none"  initialRouteName='PokedexTab' >
       <Stack.Screen name ='Pokedex' component = {Pokedex} />
       <Stack.Screen name ='Pokemon' component = {Pokemon} />
       <Stack.Screen name ='Connexion' component = {Auth} />
@@ -54,6 +56,10 @@ function createMenuStack() {
 }
 
 export default function App() {
+
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(myConfig);
+}
   return (
 
       <NavigationContainer>
