@@ -12,25 +12,7 @@ export default class Auth extends React.Component {
 
   state = { email: "", password: "" };
 
-  setInscription() {
-    let email = this.state.email
-    let pass = this.state.password
-    try {
-      firebase.auth().createUserWithEmailAndPassword(email, pass)
-        .then(user => {
-          console.log('auth',user)
-          alert(`${user.user.email} est désormais inscrit`)
-        })
-        .catch(error => {
-          alert(error)
-
-        });
-    }
-    catch (error) {
-      alert(error.toString(error));
-    }
-  };
-
+  
   setConnexion(email, pass) {
     const navigation = this.props.navigation
 
@@ -51,9 +33,6 @@ export default class Auth extends React.Component {
     }
   };
 
-
-
-
   componentDidMount() {
     
     const user = firebase.auth().currentUser;
@@ -65,11 +44,6 @@ export default class Auth extends React.Component {
 
 };
   
-
-
-
-
-
 render() {
 
   return (
@@ -92,7 +66,7 @@ render() {
           }
           title="Let's Go"
         />
-        <TouchableOpacity onPress={() => { this.setInscription() }} >
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Inscription') }} >
           <Text style={styles.signUpText}>Inscris toi !</Text>
         </TouchableOpacity>
       </View>

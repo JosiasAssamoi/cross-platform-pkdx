@@ -5,6 +5,7 @@ import { Icon, Button } from 'react-native-elements'
 import MyHeader from './MyHeader';
 import { styles } from './assets/styles';
 import * as firebase from 'firebase';
+import FavIcons from './FavIcons';
 export default class Pokedex extends React.Component {
 
     state = { initialPokemons: [], pokemons: [], searchFilter: 'name', user: null }
@@ -32,9 +33,20 @@ export default class Pokedex extends React.Component {
     }
 
     componentDidMount() {
+
+      
+        
+
         if (this.state.pokemons.length == 0){
             this.fetchPokemons()
         }
+
+        const db =firebase.database() 
+        if (db){
+
+        }
+
+
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
               console.log('userrrrr');
@@ -53,7 +65,7 @@ export default class Pokedex extends React.Component {
         
     }
 
-        SearchMatchedPokmons(text) {
+        searchMatchedPokemons(text) {
             const filter = String(this.state.searchFilter)
             text = String(text).toLowerCase()
             if (text == '') {
@@ -101,13 +113,9 @@ export default class Pokedex extends React.Component {
             this.sortList()
         }
 
-        ToggleFavIcon(){
+        ToggleFavIcon(id){
             if (this.state.user) {
-                return (<Icon
-                    name='star-o'
-                    type='font-awesome'
-                    size={23}
-                    onPress={() => this.props.navigation.toggleDrawer()} />)
+                return <FavIcons pokemonId={id}></FavIcons>
             }
             else return null
         }
@@ -138,7 +146,7 @@ export default class Pokedex extends React.Component {
                             <Picker.Item label="Type" value="types" />
                             <Picker.Item label="Numero" value="id" />
                         </Picker>
-                        <TextInput placeholder='Taper votre recherche ici' style={styles.input} onChangeText={(text) => { this.SearchMatchedPokmons(text) }}></TextInput>
+                        <TextInput placeholder='Taper votre recherche ici' style={styles.input} onChangeText={(text) => { this.searchMatchedPokemons(text) }}></TextInput>
                     </View>
                     <ScrollView style={styles.container}>
                         <View style={{ alignItems: 'center' }}>
@@ -151,7 +159,7 @@ export default class Pokedex extends React.Component {
 
                                         <Button title={pokemon.name} buttonStyle={{ width: '100%', borderWidth: 0, backgroundColor: 'transparent' }} titleStyle={{ color: 'rgb(250,90,86)', textTransform: 'capitalize' }} onPress={() => { this.props.navigation.navigate('Pokemon', { pokemon }) }} />
 
-                                        {this.ToggleFavIcon()}
+                                        {this.ToggleFavIcon(pokemon.id)}
 
                                     </View>)
 

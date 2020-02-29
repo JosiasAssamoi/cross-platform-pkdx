@@ -9,6 +9,7 @@ import Pokemon from './Pokemon'
 import WishList from './WishList'
 import { myConfig } from './firebase-config'
 import * as firebase from 'firebase';
+import Inscription from './Inscription';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator()
@@ -28,8 +29,8 @@ function createPokedexTabs(){
 }
 
 function createCustomButton(props){
-  const jumpToAction = DrawerActions.jumpTo('StackMenu',{screen:'PokedexTab'})
-  const jumpToConnexion = DrawerActions.jumpTo('StackMenu',{screen:'Connexion'})
+  const jumpToAction = DrawerActions.jumpTo('StackApp',{screen:'PokedexTab'})
+  const jumpToConnexion = DrawerActions.jumpTo('StackApp',{screen:'Connexion'})
 return(
   <DrawerContentScrollView {...props}>
     <DrawerItem
@@ -42,12 +43,13 @@ return(
 
 }
 
-function createMenuStack() {
+function createAppStack() {
   return  (
     <Stack.Navigator   headerMode="none"  initialRouteName='PokedexTab' >
       <Stack.Screen name ='Pokedex' component = {Pokedex} />
       <Stack.Screen name ='Pokemon' component = {Pokemon} />
       <Stack.Screen name ='Connexion' component = {Auth} />
+      <Stack.Screen name ='Inscription' component = {Inscription} />
       <Stack.Screen name ='PokedexTab' component = {createPokedexTabs} />
 
     </Stack.Navigator>
@@ -57,6 +59,7 @@ function createMenuStack() {
 
 export default function App() {
 
+  //init l'instance firebase
   if (firebase.apps.length === 0) {
     firebase.initializeApp(myConfig);
 }
@@ -64,7 +67,7 @@ export default function App() {
 
       <NavigationContainer>
         <Drawer.Navigator drawerContent = { props => createCustomButton(props)} initialRouteName='Pokedextab'  > 
-          <Drawer.Screen name='StackMenu' component={createMenuStack} />
+          <Drawer.Screen name='StackApp' component={createAppStack} />
         </Drawer.Navigator>
       </NavigationContainer>
 

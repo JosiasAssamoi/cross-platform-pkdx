@@ -19,10 +19,6 @@ export default class MyHeader extends React.Component {
   }
 
   toggleRightIcons() {
-
-    
-    
-
     if (firebase.auth().currentUser !=null) {
       return (<View style={{ flexDirection: 'row' }}>
         <Icon
@@ -40,7 +36,6 @@ export default class MyHeader extends React.Component {
 
     }
     else {
-      console.log(('noo logouy'));
       return <Icon
         name='home'
         type='Entypo'
