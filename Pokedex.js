@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Text, SafeAreaView, View, TextInput, ScrollView, Image, Picker, TouchableOpacity } from 'react-native';
+import { Text, SafeAreaView, View, TextInput, ScrollView, Image, Picker, TouchableOpacity,ActivityIndicator } from 'react-native';
 import { Icon, Button } from 'react-native-elements'
 import MyHeader from './MyHeader';
 import { styles } from './assets/styles';
@@ -11,7 +11,7 @@ export default class Pokedex extends React.Component {
     state = { initialPokemons: [], pokemons: [], searchFilter: 'name', user: null }
 
     async fetchPokemons() {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20")
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=40")
         let pokemons = await response.json()
         Object.values(pokemons.results).forEach((pokemon) => {
             this.fetchSinglePokemon(pokemon)
@@ -29,13 +29,11 @@ export default class Pokedex extends React.Component {
             weight: pokeData.weight,
             types: pokeData.types.map((pokemon) => { return pokemon.type.name })
         }
+        
         this.setState({ pokemons: [...this.state.pokemons, poket], initialPokemons: [...this.state.pokemons, poket] })
     }
 
     componentDidMount() {
-
-      
-        
 
         if (this.state.pokemons.length == 0){
             this.fetchPokemons()
@@ -124,6 +122,7 @@ export default class Pokedex extends React.Component {
 
             return (
                 <SafeAreaView>
+                     
                     <MyHeader navigation={this.props.navigation} name={this.constructor.name}></MyHeader>
                     <View style={styles.inputRow}>
 

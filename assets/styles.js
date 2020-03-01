@@ -54,4 +54,6 @@ export const styles = StyleSheet.create({
     height: 45,
     marginTop: 10,
   },
+  infos:
+  {    marginVertical:15,width:'100%',alignItems:'center',justifyContent:'space-around',flexDirection: 'row',backgroundColor:'lightblue'}
 });
