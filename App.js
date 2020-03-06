@@ -10,6 +10,7 @@ import WishList from './WishList'
 import { myConfig } from './firebase-config'
 import * as firebase from 'firebase';
 import Inscription from './Inscription';
+import { ScreenOrientation } from 'expo';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator()
@@ -57,12 +58,17 @@ function createAppStack() {
 
 }
 
+async  function changeScreenOrientation() {
+  await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL);
+}
+
 export default function App() {
 
   //init l'instance firebase
   if (firebase.apps.length === 0) {
     firebase.initializeApp(myConfig);
 }
+changeScreenOrientation()
   return (
 
       <NavigationContainer>
